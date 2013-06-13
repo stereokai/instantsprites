@@ -15,7 +15,7 @@ It then generates the Compass code for magically generating a sprite image and a
 ### How to use it?
 
 `> node instantsprites.js <path/to/sprite/folder>` from your console to generate the .scss file.
-And then `@import` it in your main scss file. Finally you have to include the sprite map in an input or class:
+And then `@import` it in your main scss file. Finally you have to include the sprite map in an element or class:
 
 	background-image: $<mapName>-sprites; // <mapName> is the name of the folder containing the sprites
 
@@ -38,16 +38,16 @@ The script automatically generates this mixin for you:
 
 And it automatically generates CSS classes for each sprite type, for example:
 
-	&.sprite-with-states.normal {
+	.sprite-with-states.normal {
 		@include <mapName>-sprites-mixin(sprite-with-states, $normal: true);
 	}
-	&.sprite-with-states.hover {
+	.sprite-with-states.hover {
 		@include <mapName>-sprites-mixin(sprite-with-states, $hover: true);
 	}
-	&.sprite-with-states.down {
+	.sprite-with-states.down {
 		@include <mapName>-sprites-mixin(sprite-with-states, $down: true);
 	}
-	&.single-sprite {
+	.single-sprite {
 		@include <mapName>-sprites-mixin(single-sprite);
 	}
 
@@ -55,7 +55,7 @@ And it automatically generates CSS classes for each sprite type, for example:
 
 Oh yes, that too. Once your code is generated, You can then manually edit the resulted SCSS to overwrite with your own position values:
 
-	&.sprite-with-states.down {
+	.sprite-with-states.down {
 		@include <mapName>-sprites-mixin(sprite-with-states, $down: true, $overwriteX: 6px, $overwriteY: 20px);
 	}
 
@@ -63,6 +63,6 @@ Oh yes, that too. Once your code is generated, You can then manually edit the re
 
 We've got you covered! If your sprite file name doesn't end with a recognized state, you'll get this CSS:
 
-	&.single-sprite {
+	.single-sprite {
 		@include <mapName>-sprites-mixin(single-sprite);
 	}
