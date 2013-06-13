@@ -2,7 +2,7 @@
 // ===========================================
 // See README for help
 
-	// add or remove states as you wish, an empty string means an else with no state after the last item in the array
+	// add or remove states as you wish
 var states = ['normal', 'hover', 'down'],
 
 	fs = require('fs'),
@@ -23,6 +23,10 @@ var states = ['normal', 'hover', 'down'],
 		return 	'.' + spriteName +
 				(state ? '.' + state : '') +
 				' {\n	@include ' + mixinName + '(' + spriteName + statesString + ');\n}\n';
+	},
+	makeStateIf = function (state) {
+		return	'		@if $' + state + ' {\n' +
+				'			$pos: sprite-position(' + mapName + ', $sprite-name + "-' + state + '", 50%, 5%);\n		}\n';
 	},
 	processSprite = function () {
 		var spriteStates = {},
@@ -71,13 +75,12 @@ var states = ['normal', 'hover', 'down'],
 
 		// reset stack
 		currentSprite = [];
-	},
-	makeStateIf = function (state) {
-		return	'		@if $' + state + ' {\n' +
-				'			$pos: sprite-position(' + mapName + ', $sprite-name + "-' + state + '", 50%, 5%);\n		}\n';
 	};
 
+// Define sprite map with Compass
 SCSS += mapName + ': sprite-map("' + folder + '/*.png", $position: 50%, $spacing: 20px);\n';
+
+// Make the mixin for this sprite map
 SCSS += '@mixin ' + mixinName + ' (\n	$sprite-name,\n';
 var mixinswrap = '	@if ($' + states.join(' or $') + ') {\n';
 for (i = 0, params = mixins = ''; i < states.length; i++) {
@@ -92,6 +95,7 @@ SCSS +=	'	}\n	@else {\n' +
 		'	background-position: $x $y;\n' +
 		'}\n\n';
 
+// Now let's make classes for each sprite and its states
 while (filelist.length > -1) {
 	if (filelist.length === 0 && currentSprite.length > 0) {
 		// this is the last sprite
