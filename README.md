@@ -14,8 +14,8 @@ It then generates the Compass code for magically generating a sprite image and a
 
 ### How to use it?
 
-> node instantsprites.js <path/to/sprite/folder> from your console to generate the .scss file.
-And then @import it in your main scss file. Finally you have to include the sprite map in an input or class:
+`> node instantsprites.js <path/to/sprite/folder>` from your console to generate the .scss file.
+And then `@import` it in your main scss file. Finally you have to include the sprite map in an input or class:
 
 	background-image: $<mapName>-sprites; // <mapName> is the name of the folder containing the sprites
 
