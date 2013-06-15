@@ -52,9 +52,6 @@ And it automatically generates CSS classes for each sprite type, for example:
 	.button-name.down {
 		@include <mapName>-sprites-mixin(button-name, $down: true);
 	}
-	.single-sprite {
-		@include <mapName>-sprites-mixin(single-sprite);
-	}
 
 ### And what about overwriting `background-position`?
 
