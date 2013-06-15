@@ -23,9 +23,9 @@ You're done!
 
 ### How does it work?
 
-It is important to note, that this script assumes the folder it is given, is located inside `images_dir`, as configured in the the project's Compass config.rb. It also assumes that all files in this folder are **png** images.
+It is important to note, that this script assumes the folder it is given, is located inside `images_dir`, as configured in the project's Compass config.rb. It also assumes that all files in this folder are **png** images.
 
-It then runs through all of the files looking for names which end with one of the states found in the `states` array, which should look like this:
+It then runs through all files looking for names which end with one of the states found in the `states` array, which means your folder should look like this:
 ```
 ├── Sprite folder
 |	├── button-name-normal.png
@@ -33,7 +33,7 @@ It then runs through all of the files looking for names which end with one of th
 |	└── button-name-down.png
 ```
 
-It will generate the code for Compass needs to generate a `$sprite-map` and a sprite asset for you, so you don't need to wrap your head around that.
+It will generate the code for Compass needs to generate a `$sprite-map` and a sprite asset for you, so you don't need to wrap your head around that. The sprite map will take the name of the folder containing your sprites.
 
 ### So how does it look like?
 
