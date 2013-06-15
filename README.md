@@ -23,12 +23,17 @@ You're done!
 
 ### How does it work?
 
-It is important to note, that this script assumes the folder it is given, is already configured as the images_dir
-in the Compass project config.rb. It also assumes that all files in this folder are png sprites.
+It is important to note, that this script assumes the folder it is given, is located inside `images_dir`, as configured in the the project's Compass config.rb. It also assumes that all files in this folder are **png** images.
 
-It then runs through all of the files looking for names which end with one of the states found in the `states` array.
+It then runs through all of the files looking for names which end with one of the states found in the `states` array, which should look like this:
+```
+├── Sprite folder
+|	├── button-name-normal.png
+|	├── button-name-hover.png
+|	└── button-name-down.png
+```
 
-It will generate the code for Compass generates to generate a `$sprite-map` and a sprite asset, so you don't need to worry about that.
+It will generate the code for Compass needs to generate a `$sprite-map` and a sprite asset for you, so you don't need to wrap your head around that.
 
 ### So how does it look like?
 
@@ -38,14 +43,14 @@ The script automatically generates this mixin for you:
 
 And it automatically generates CSS classes for each sprite type, for example:
 
-	.sprite-with-states.normal {
-		@include <mapName>-sprites-mixin(sprite-with-states, $normal: true);
+	.button-name.normal {
+		@include <mapName>-sprites-mixin(button-name, $normal: true);
 	}
-	.sprite-with-states.hover {
-		@include <mapName>-sprites-mixin(sprite-with-states, $hover: true);
+	.button-name.hover {
+		@include <mapName>-sprites-mixin(button-name, $hover: true);
 	}
-	.sprite-with-states.down {
-		@include <mapName>-sprites-mixin(sprite-with-states, $down: true);
+	.button-name.down {
+		@include <mapName>-sprites-mixin(button-name, $down: true);
 	}
 	.single-sprite {
 		@include <mapName>-sprites-mixin(single-sprite);
@@ -53,16 +58,16 @@ And it automatically generates CSS classes for each sprite type, for example:
 
 ### And what about overwriting `background-position`?
 
-Oh yes, that too. Once your code is generated, You can then manually edit the resulted SCSS to overwrite with your own position values:
+Hell yes! Once your code is generated, You can then manually edit the resulted SCSS to overwrite with your own position values:
 
-	.sprite-with-states.down {
-		@include <mapName>-sprites-mixin(sprite-with-states, $down: true, $overwriteX: 6px, $overwriteY: 20px);
+	.button-name.down {
+		@include <mapName>-sprites-mixin(button-name, $down: true, $overwriteX: 6px, $overwriteY: 20px);
 	}
 
-### One last thing, what about single sprites with no states?
+### One last thing, what about sprites with no states?
 
 We've got you covered! If your sprite file name doesn't end with a recognized state, you'll get this CSS:
 
-	.single-sprite {
+	.static-sprite {
 		@include <mapName>-sprites-mixin(single-sprite);
 	}
