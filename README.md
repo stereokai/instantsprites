@@ -10,7 +10,7 @@ along with respective CSS classes to allow for easy management of CSS sprites.
 
 It reads all files in a directory, assuming they are all sprites with state suffixes, such as -normal, -hover and -down.
 
-It then generates the Compass code for magically generating a sprite image and a matching Compass sprite map, as well as SCSS classes that can help you overwrite background-position for each sprite-class and even each state.
+It then generates the Compass code for magically generating a sprite image and a matching Compass sprite map, as well as SCSS classes that can help you correct background-position for each sprite-class and even each sprite state.
 
 ### How to use it?
 
@@ -53,12 +53,18 @@ And it automatically generates CSS classes for each sprite type, for example:
 		@include <mapName>-sprites-mixin(button-name, $down: true);
 	}
 
-### And what about overwriting `background-position`?
+### And what about correcting/overwriting `background-position`?
 
-Hell yes! Once your code is generated, You can then manually edit the resulted SCSS to overwrite with your own position values:
+Hell yes! Compass generate position values which are sometimes a bit off. Once your code is generated, You can then manually edit the resulted SCSS to overwrite with your own position values. Using the `diffX` and `diffY` parameters you can correct the CSS relative to Compass's original positions:
 
 	.button-name.down {
-		@include <mapName>-sprites-mixin(button-name, $down: true, $overwriteX: 6px, $overwriteY: 20px);
+		@include <mapName>-sprites-mixin(button-name, $down: true, $diffX: 6px, $diffY: 20px);
+	}
+
+You can even completely overwrite `background-position`:
+
+	.button-name.down {
+		@include <mapName>-sprites-mixin(button-name, $down: true, $overwriteX: 50%, $overwriteY: 430px);
 	}
 
 ### One last thing, what about sprites with no states?
