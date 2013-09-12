@@ -77,6 +77,45 @@ var states = ['normal', 'hover', 'down'],
 		currentSprite = [];
 	};
 
+// The following 20 lines of code result in this awesome SCSS mixin code:
+// $folder-sprites: sprite-map("folder/*.png", $position: 50%, $spacing: 20px);
+// @mixin button-sprites-mixin (
+// 	$sprite-name,
+// 	[sprite states according to what's in the folder, for example:],
+// 	$normal: false,
+// 	$hover: false,
+// 	$down: false,
+// 	$overwriteX: false,
+// 	$overwriteY: false,
+// 	$diffX: false,
+// 	$diffY: false) {
+// 	$pos: "";
+// 
+// 	[sprite states according to what's in the folder, for example:],
+// 	@if ($normal or $hover or $down) {
+// 		@if $normal {
+// 			$pos: sprite-position($folder-sprites, $sprite-name + "-normal", 50%, 5%);
+// 		}
+// 		@if $hover {
+// 			$pos: sprite-position($folder-sprites, $sprite-name + "-hover", 50%, 5%);
+// 		}
+// 		@if $down {
+// 			$pos: sprite-position($folder-sprites, $sprite-name + "-down", 50%, 5%);
+// 		}
+// 	}
+// 	@else {
+// 		$pos: sprite-position($folder-sprites, $sprite-name, 50%, 5%);
+// 	}
+// 
+// 	$x: if($diffX, nth($pos, 1) + $diffX, nth($pos, 1));
+// 	$y: if($diffY, nth($pos, 2) + $diffY, nth($pos, 2));
+// 
+// 	$x: if($overwriteX, $overwriteX, $x);
+// 	$y: if($overwriteY, $overwriteY, $y);
+// 
+// 	background-position: $x $y;
+// }
+
 // Define sprite map with Compass
 SCSS += mapName + ': sprite-map("' + folder + '/*.png", $position: 50%, $spacing: 20px);\n';
 
@@ -86,12 +125,14 @@ var mixinswrap = '	@if ($' + states.join(' or $') + ') {\n';
 for (i = 0, params = mixins = ''; i < states.length; i++) {
 	params += (states[i] !== '' ? '	$' + states[i] + ': false,\n' : '');
 	mixins += makeStateIf(states[i]);
-	if (i == states.length - 1) { SCSS += params + '	$overwriteX: false,\n	$overwriteY: false' + ') {\n	$pos: "";\n\n' + mixinswrap + mixins; }
+	if (i == states.length - 1) { SCSS += params + '	$overwriteX: false,\n	$overwriteY: false,\n	$diffX: false,\n	diffY: false' + ') {\n	$pos: "";\n\n' + mixinswrap + mixins; }
 }
 SCSS +=	'	}\n	@else {\n' +
 		'		$pos: sprite-position(' + mapName + ', $sprite-name, 50%, 5%);\n	}\n\n' +
-		'	$x: if($overwriteX, $overwriteX, nth($pos, 1));\n' +
-		'	$y: if($overwriteY, $overwriteY, nth($pos, 2));\n' +
+		'	$x: if($diffX, nth($pos, 1) + $diffX, nth($pos, 1));\n' +
+		'	$y: if($diffY, nth($pos, 2) + $diffY, nth($pos, 2));\n\n' +
+		'	$x: if($overwriteX, $overwriteX, $x);\n' +
+		'	$y: if($overwriteY, $overwriteY, $y);\n\n' +
 		'	background-position: $x $y;\n' +
 		'}\n\n';
 
