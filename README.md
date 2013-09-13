@@ -1,5 +1,5 @@
-Instant Sprites for Compass - By Stereokai
-===========================================
+Instant Sprites for Compass
+===========================
 
 ### What is this?
 
